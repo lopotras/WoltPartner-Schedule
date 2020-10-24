@@ -5,6 +5,7 @@ from time import strftime as strftime
 
 import win32gui
 
+import pyautogui
 from pyautogui import click as click
 from pyautogui import typewrite as typewrite
 from pyautogui import hotkey as hotkey
@@ -50,8 +51,8 @@ def enterWolt():
     return rect
 
 def refresh():
-    # refresh the hours in WoltPartnerApp
-    typewrite('r')
+    pyautogui.moveTo(273,271)
+    pyautogui.drag(0,200,0.2,button = 'left')
 
 def changeDay(day):
     # moves to a day that is currently at 'day' position
