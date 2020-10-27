@@ -8,7 +8,8 @@ For the script to work you need to:
   1. Download and install python (tested on version 3.8.5) and modules: win32gui, pyautogui.
   2. Download and install BlueStacks 4
   3. Open and log-in to the WoltPartner App in BlueStacks. The app needs to be opened in white theme.
-  4. Autoalign BlueStacks
+  4. In WoltPartner App open the menu (top left corner) and go to Scheduled hours -> Aarhus Central (or the city you are delivering in)
+  5. Autoalign BlueStacks
   
   
 B. MANUAL
