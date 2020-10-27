@@ -17,7 +17,9 @@ B. MANUAL
   To set the booking times in the script scroll all the way down to "BODY".
   
   The functions you will be using:
+    
     1. startAt(hh) - as "hh" put in the time the new hours appear in the 24h format (example: startAt(15), startAt(8) )
+    
     2. booking(day,slot) - day - number (1-7), as they are listed in the top of the screen from left to right (including new ones)
                            slot - number (1-14), shift slot in order as they are listed from top to bottom
                            (example: booking(2,4) - will book 4th shift from the top on the 2nd day from the left)
