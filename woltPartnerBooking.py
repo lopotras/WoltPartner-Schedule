@@ -1,45 +1,78 @@
 #! python3
 
+
+
+# To set the booking times scroll all the way down to "BODY"
+
+
+
+
 ### LIBRARIES IMPORT ###
-from time import sleep as sleep
-from time import strftime as strftime
-from time import time as time
-from time import localtime as localtime
-
+import time
 import win32gui
-
 import pyautogui
-from pyautogui import click as click
-from pyautogui import typewrite as typewrite
-from pyautogui import hotkey as hotkey
-
-
 
 ### FUNCTIONS DEFINITIONS ###
+
+def setup():
+    # Global variables definition
+    # (relative coordinates)
+
+    global refreshCircle
+    refreshCircle = [0.4370015948963317, 0.26601941747572816]   # X and Y coordinates
+                                                                # of the circle that appears when refreshing
+    global shifts
+    shifts = [[0.8229665071770335, 0.27475728155339807],    # X and Y coordinates
+                [0.810207336523126, 0.3300970873786408],    # of shift slots
+                [0.8118022328548644, 0.38058252427184464],
+                [0.8118022328548644, 0.4349514563106796],
+                [0.8133971291866029, 0.49029126213592233],
+                [0.8149920255183413, 0.5446601941747573],
+                [0.8181818181818182, 0.5980582524271845],
+                [0.8086124401913876, 0.6524271844660194],
+                [0.8133971291866029, 0.7029126213592233],
+                [0.8070175438596491, 0.7621359223300971],
+                [0.8070175438596491, 0.8097087378640777],
+                [0.8054226475279107, 0.8699029126213592],
+                [0.8133971291866029, 0.9262135922330097],
+                [0.8054226475279107, 0.9757281553398058]]
+
+    global thuDays
+    thuDays = [[0.0430622009569378, 0.1941747572815534],    # X and Y coordinates
+                [0.11961722488038277, 0.19611650485436893], # of days
+                [0.20574162679425836, 0.19223300970873786],
+                [0.2886762360446571, 0.19320388349514564],
+                [0.3700159489633174, 0.19611650485436893],
+                [0.44657097288676234, 0.19320388349514564],
+                [0.532695374800638, 0.19320388349514564]]
+
+    global bookButton
+    bookButton = [[0.7751196172248804, 0.3300970873786408], # X and Y coordinates of
+                [0.8500797448165869, 0.32815533980582523]]  # start and end of the button area
+
+    print( time.strftime("%c") + " All set")
+
 def pause():
     input( "press ENTER to continue..." )
 
 def startAt(hour, minute = 0, second = 0):
     # stop until the chosen hour comes
-    print( strftime("%c") + " Waiting for {:02}:{:02}:{:02}...".format(hour, minute, second) )
+    print( time.strftime("%c") + " Waiting for {:02}:{:02}:{:02}...".format(hour, minute, second) )
     while True:
-        if localtime()[3] == hour:
-            if localtime()[4] == minute:
-                if localtime()[5] == second:
-                    print( strftime("%c") + " Initiate booking actions")
+        if time.localtime()[3] == hour:
+            if time.localtime()[4] == minute:
+                if time.localtime()[5] == second:
+                    print( time.strftime("%c") + " Initiate booking actions")
                     break
 
 def enterWolt():
     # Finds and brings BlueStacks window to the front
     # Returns window coordinates
-    print( strftime("%c") + " Entering WoltPartner...")
+    print( time.strftime("%c") + " Entering WoltPartner...")
     hwnd = win32gui.FindWindow( None, "BlueStacks" )
     win32gui.ShowWindow( hwnd,5 )
     win32gui.SetForegroundWindow( hwnd )
-    rect = win32gui.GetWindowRect( hwnd )
-    sleep( 0.2 )
-    print( strftime("%c") + " Entered WoltPartner")
-    return rect
+    print( time.strftime("%c") + " Entered WoltPartner")
 
 def refresh():
     # refreshes the page by dragging cursor
@@ -52,15 +85,19 @@ def changeDay(day):
     # moves to a day that is currently at 'day' position
     # note: 'day' must be an number between 1-7 (position from left to right)
     pos = translatedCoordinates( thuDays[day-1] )
-    click( pos[0], pos[1] )
+    pyautogui.click( pos[0], pos[1] )
     verifyPixelColorChange(  int( pos[0] ), int( pos[1] ), 255  )
-    print( strftime("%c") + " Changed day to " + str(day) )
+    print( time.strftime("%c") + " Changed day to {}".format(day) )
 
 def bookShift(slot):
     # Clicks on the booking button space on the chosen slot
     # note that 'slot' must be a number between 1-14 (position from top to bottom)
     verifyBooking( slot )
-    click( translatedCoordinates( shifts[slot-1] ) )
+    pyautogui.click( translatedCoordinates( shifts[slot-1] ) )
+
+def booking(day, slot):
+    changeDay(day)
+    bookShift(slot)
 
 def get_pixel_colour( i_x, i_y ):
     # returns the color of a pixel with coordinates i_x, i_y
@@ -89,13 +126,13 @@ def verifyBooking(slot):
     # Stops script
     # Verifies if the chosen slot has a booking option available
     # Used also to see if the page loaded already after previous booking
-    print( strftime("%c") + " Checking booking availability..." )
+    print( time.strftime("%c") + " Checking booking availability for slot {}...".format(slot) )
     posXstart = int (  translatedCoordinates( bookButton[0] ) [0]  )    # start point of booking button area
     posXend = int (  translatedCoordinates( bookButton[1] ) [0]  )      # end point of booking button area
     posY = int(  translatedCoordinates( shifts[slot-1] ) [1]  )         # Y coordinate of booking button area
 
     marker = False              # define a condition marker for the while loop
-    timeout = time() + 4        # set waiting time for booking verification before moving on
+    timeout = time.time() + 5        # set waiting time for booking verification before moving on
 
     while marker == False:      # while loop checks if the "Book" option appeared
 
@@ -105,13 +142,13 @@ def verifyBooking(slot):
             if currentColor[0] < 100:
                 # checks if the pixel is a part of an availale "Book" option
                 marker = True
-                print( strftime("%c") + " Booking" )
+                print( time.strftime("%c") + " Booking" )
                 break
 
-            elif time() > timeout:
+            elif time.time() > timeout:
                 # checks if the waiting time for "Book" option to appear has been exceeded
                 marker = True
-                print( strftime("%c") + " Booking unavailable" )
+                print( time.strftime("%c") + " Booking unavailable" )
                 break
 
 def verifyRefresh():
@@ -120,11 +157,11 @@ def verifyRefresh():
 
     # see if the refreshing circle appeared
     verifyPixelColorChange( int(pos[0]), int(pos[0]), 255 )
-    print( strftime("%c") + " Refreshing..." )
+    print( time.strftime("%c") + " Refreshing..." )
 
     # see if the refreshing circle disappeared
     verifyPixelColorChange( int(pos[0]), int(pos[0]), 250 )
-    print( strftime("%c") + " Refreshed" )
+    print( time.strftime("%c") + " Refreshed" )
 
 def translatedCoordinates(xyIn):
     ### Translator for the coordinates in 0-1 value range ###
@@ -138,48 +175,24 @@ def translatedCoordinates(xyIn):
 
 
 
-### GLOBAL VARIABLES DEFINITIONS ###
-# RELATIVE COORDINATES
-
-refreshCircle = [0.4370015948963317, 0.26601941747572816]   # X and Y coordinates
-                                                            # of the circle that appears when refreshing
-
-shifts = [[0.8229665071770335, 0.27475728155339807],    # X and Y coordinates
-            [0.810207336523126, 0.3300970873786408],    # of shift slots
-            [0.8118022328548644, 0.38058252427184464],
-            [0.8118022328548644, 0.4349514563106796],
-            [0.8133971291866029, 0.49029126213592233],
-            [0.8149920255183413, 0.5446601941747573],
-            [0.8181818181818182, 0.5980582524271845],
-            [0.8086124401913876, 0.6524271844660194],
-            [0.8133971291866029, 0.7029126213592233],
-            [0.8070175438596491, 0.7621359223300971],
-            [0.8070175438596491, 0.8097087378640777],
-            [0.8054226475279107, 0.8699029126213592],
-            [0.8133971291866029, 0.9262135922330097],
-            [0.8054226475279107, 0.9757281553398058]]
-
-thuDays = [[0.0430622009569378, 0.1941747572815534],    # X and Y coordinates
-            [0.11961722488038277, 0.19611650485436893], # of days
-            [0.20574162679425836, 0.19223300970873786],
-            [0.2886762360446571, 0.19320388349514564],
-            [0.3700159489633174, 0.19611650485436893],
-            [0.44657097288676234, 0.19320388349514564],
-            [0.532695374800638, 0.19320388349514564]]
-
-bookButton = [[0.7751196172248804, 0.3300970873786408], # X and Y coordinates of
-            [0.8500797448165869, 0.32815533980582523]]  # start and end of the button area
-
-
 ### BODY ###
+setup()
 pause()
 
 enterWolt()
 
+# set the time the new shifts appear in 24h format
+# it should be either 15 on Thusday or 8 on Friday
+startAt(14,51)
+
 refresh()
-changeDay(4)
-bookShift(8)
-changeDay(5)
-bookShift(13)
+
+# chose a shift to book, format: booking(day,slot) - each booking books one shift
+# day - number (1-7), as they are listed in the top of the screen from left to right
+# (including new ones)
+# slot - number (1-14), shift slot in order as they are listed from top to bottom
+booking(4,8)
+booking(5,13)
+booking(6,13)
 
 pause();
