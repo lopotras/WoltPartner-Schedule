@@ -4,6 +4,7 @@
 from time import sleep as sleep
 from time import strftime as strftime
 from time import time as time
+from time import localtime as localtime
 
 import win32gui
 
@@ -15,8 +16,16 @@ from pyautogui import hotkey as hotkey
 
 
 ### FUNCTIONS DEFINITIONS ###
-def wait():
+def pause():
     input( "press ENTER to continue..." )
+
+def startAt(hour, minute = 0, second = 0):
+    print( strftime("%c") + " Waiting for {:02}:{:02}:{:02}".format(hour, minute, second) )
+    while True:
+        if localtime()[3] == hour:
+            if localtime()[4] == minute:
+                if localtime()[5] == second:
+                    break
 
 def enterWolt():
     hwnd = win32gui.FindWindow( None, "BlueStacks" )
@@ -30,6 +39,7 @@ def refresh():
     pos = translatedCoordinates( refreshCircle )
     pyautogui.moveTo( pos )
     pyautogui.drag( 0, 200, 0.2, button = 'left' )
+    verifyRefresh()
 
 def changeDay(day):
     # moves to a day that is currently at 'day' position
@@ -37,7 +47,7 @@ def changeDay(day):
     pos = translatedCoordinates( thuDays[day-1] )
     click( pos[0], pos[1] )
     verifyPixelColorChange(  int( pos[0] ), int( pos[1] ), 255  )
-    print( timeStamp + " Changed day to " + str(day) )
+    print( strftime("%c") + " Changed day to " + str(day) )
 
 def bookShift(slot):
     # Clicks on the booking button space on the chosen slot
@@ -88,13 +98,13 @@ def verifyBooking(slot):
             if currentColor[0] < 100:
                 # checks if the pixel is a part of an availale "Book" option
                 marker = True
-                print( timeStamp + " Booking..." )
+                print( strftime("%c") + " Booking..." )
                 break
 
             elif time() > timeout:
                 # checks if the waiting time for "Book" option to appear has been exceeded
                 marker = True
-                print( timeStamp + " Booking unavailable" )
+                print( strftime("%c") + " Booking unavailable" )
                 break
 
 def verifyRefresh():
@@ -102,11 +112,11 @@ def verifyRefresh():
 
     # see if the refreshing circle appeared
     verifyPixelColorChange( int(pos[0]), int(pos[0]), 255 )
-    print( timeStamp + " refreshing..." )
+    print( strftime("%c") + " refreshing..." )
 
     # see if the refreshing circle disappeared
     verifyPixelColorChange( int(pos[0]), int(pos[0]), 250 )
-    print( timeStamp + " refreshed" )
+    print( strftime("%c") + " refreshed" )
 
 def translatedCoordinates(xyIn):
     ### Translator for the coordinates in 0-1 value range ###
@@ -121,8 +131,6 @@ def translatedCoordinates(xyIn):
 
 
 ### GLOBAL VARIABLES DEFINITIONS ###
-timeStamp = strftime( "%c" )
-
 # RELATIVE COORDINATES
 
 refreshCircle = [0.4370015948963317, 0.26601941747572816] # X and Y coordinates
@@ -155,14 +163,14 @@ bookButton = [[0.7751196172248804, 0.3300970873786408], # X and Y coordinates of
 
 
 ### BODY ###
-wait()
+pause()
 
 enterWolt()
+startAt(10,9)
 refresh()
-verifyRefresh()
 changeDay(4)
 bookShift(8)
 changeDay(5)
 bookShift(13)
 
-wait();
+pause();
