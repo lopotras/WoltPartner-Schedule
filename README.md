@@ -2,7 +2,7 @@
 A little help to get the Wolt shifts you want
 
 
-A. PREREQUISITS
+<h2>PREREQUISITS</h2>
 
 For the script to work you need to:
   1. Download and install python (tested on version 3.8.5) and modules: win32gui, pyautogui.
@@ -12,7 +12,7 @@ For the script to work you need to:
   5. Autoalign BlueStacks
   
   
-B. MANUAL
+<h2>MANUAL</h2>
 
   To set the booking times in the script scroll all the way down to "BODY".
   
