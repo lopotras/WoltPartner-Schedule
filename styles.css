@@ -1,0 +1,86 @@
+body {
+  background-color: black;
+  font-family: Arial;
+}
+
+h1 {
+  color: rgb(0, 143, 17);
+  margin-left: auto;
+  margin-right: auto;
+  width: 20em;
+
+}
+
+h2 {
+  text-align: center;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+}
+
+.sub {
+  background-color: black;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  }
+
+.element{
+  background-color: none;
+  width: 30%;
+  margin: 10px;
+  max-height: 800px;
+}
+
+.positions {
+  border: none;
+}
+
+.code-holder {
+  background-color: white;
+  margin: auto;
+  padding: 10px;
+  width: 80%;
+  height: 30%;
+}
+
+#map {
+  max-width: 500px;
+}
+
+#table {
+  color: rgb(0, 143, 17);
+  font-weight: bolder;
+  min-width: 350px;
+  padding: 10px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+#generator {
+  background-color: green;
+}
+
+#woltMap {
+  max-width: 500px;
+  width: 100%;
+  height: 100%;
+}
+
+table {
+  border: none;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+th, td {
+  border: none;
+  text-align: center;
+  width: 30px;
+  padding: 5px;
+}
