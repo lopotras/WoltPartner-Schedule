@@ -1,6 +1,7 @@
+// Removes a value from an array
 function arrayRemove( arr, value ) {
-  // Removes a value from an array
-  return arr.filter(  function( ele ){
+
+  return arr.filter( function(ele) {
     return ele != value;
   }  );
 }
@@ -8,14 +9,13 @@ function arrayRemove( arr, value ) {
 // define array for checked bookings (checkbox)
 var bookings = [];
 
+
 // define string for ready python code
 var code = "";
 
-//define regular expression to match checkbox ID's from 'bookings'
-const re = /([A-Za-z]+)(\d)/;
 
-// Define object that matches the day with the corresponding position in WoltPartner App
-var days = {
+// define object that matches the day with the corresponding position in WoltPartner App
+const days = {
   "Mon": 4,
   "Tue": 5,
   "Wed": 6,
@@ -25,23 +25,77 @@ var days = {
   "Sun": 7,
 };
 
+
+// define regular expression to match checkbox ID's from 'bookings'
+const re = /([A-Za-z]+)(\d)/;
+
+
+// define function translating checkboxIDs array into Python code
+// takes in array, returns a string
+function toPython(arr) {
+  let str = "\n", add, arg1, arg2;
+
+  for (let i = 0; i < arr.length; i++) {
+
+    arg1 = days[  arr[i].match( re ) [1]  ];
+    arg2 = arr[i].match( re ) [2];
+
+    add = `booking(${arg1},${arg2})\n`;
+    str = str.concat( add );
+  };
+
+  return str;
+}
+
+
+// define function that filters through 'bookings' and returns array filled
+// only with day that need to be booked on Thursday
+function thuDays(arr) {
+
+  return arr.filter( function(ele) {
+    let day = ele.match( re ) [1];
+
+    if (day == "Fri" || day == "Sat" || day == "Sun") {
+      return ele;
+    }
+
+  });
+}
+
+
+// define function that filters through 'bookings' and returns array filled
+// only with day that need to be booked on Friday
+function friDays(arr) {
+
+  return arr.filter( function(ele) {
+    let day = ele.match( re ) [1];
+
+    if (day == "Mon" || day == "Tue" || day == "Wed" || day == "Thu") {
+      return ele;
+    }
+
+  });
+}
+
+
+// BODY //
+
 // Putting a checkbox-table into code
 $(document).ready( function(){
 
+  // Add an element to 'bookings' when a checkbox is checked
+  // Remove an element from 'bookings' when a checkbox is unchecked
   $( ":checkbox" ).click( function() {
-    // Add an element to 'bookings' when a checkbox is checked
-    // Remove an element from 'bookings' when a checkbox is unchecked
-    console.log( this.id );
 
     if (  bookings.includes( this.id )  ) {
       bookings = arrayRemove( bookings, this.id );
 
     } else { bookings.push( this.id ); };
 
-    $( "#thuCode" ).innerHTML = bookings;
+    //show Python code in a respective space according to the day of booking
+    $( "#thuCode" ).html(toPython( thuDays(bookings) ));
+    $( "#friCode" ).html(toPython( friDays(bookings) ));
+
   });
 
 });
-
-//define regular expression to match checkbox ID's from 'bookings'
-const re = /([A-Za-z]+)(\d)/;
