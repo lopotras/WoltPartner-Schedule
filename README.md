@@ -4,6 +4,7 @@ A little help to get the Wolt shifts you want
 
 <h2>PREREQUISITS</h2>
 
+Use woltPartnerBooking.py only.
 For the script to work you need to:
   1. Download and install python (tested on version 3.8.5) and modules: win32gui, pyautogui.
   2. Download and install BlueStacks 4
