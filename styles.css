@@ -1,6 +1,6 @@
 body {
   background-color: black;
-  font-family: Arial;
+  font-family: Courier;
 }
 
 h1 {
@@ -41,11 +41,11 @@ input {
 }
 
 .code-holder {
-  background-color: white;
   margin: auto;
   padding: 10px;
-  width: 80%;
-  height: 30%;
+  width: 70%;
+  min-height: 180px;
+  max-height: 80%;
 }
 
 #map {
@@ -62,7 +62,10 @@ input {
 }
 
 #generator {
-  background-color: green;
+  color: green;
+  background-color: none;
+  max-width: 260px;
+  min-height: 300px;
 }
 
 #woltMap {
