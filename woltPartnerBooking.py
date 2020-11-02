@@ -1,18 +1,23 @@
 #! python3
-
-
-
-# To set the booking times scroll all the way down to "BODY"
-
-
-
-
 ### LIBRARIES IMPORT ###
 import time
 import win32gui
 import pyautogui
 
-### FUNCTIONS DEFINITIONS ###
+def pasteCodeHere():
+    # Paste the generated code here
+    # NOTE: All the lines must be indented (aligned on the left with this comment)
+    # Example:
+	startAt(15)
+
+	refresh()
+
+	booking(5,8)
+	booking(6,7)
+	booking(7,8)
+
+
+    # End of space for pasting
 
 def setup():
     # Global variables definition
@@ -178,21 +183,8 @@ def translatedCoordinates(xyIn):
 ### BODY ###
 setup()
 pause()
-
 enterWolt()
 
-# set the time the new shifts appear in 24h format
-# it should be either 15 on Thusday or 8 on Friday
-startAt(14,51)
-
-refresh()
-
-# chose a shift to book, format: booking(day,slot) - each booking books one shift
-# day - number (1-7), as they are listed in the top of the screen from left to right
-# (including new ones)
-# slot - number (1-14), shift slot in order as they are listed from top to bottom
-booking(4,8)
-booking(5,13)
-booking(6,13)
+pasteCodeHere()
 
 pause();
