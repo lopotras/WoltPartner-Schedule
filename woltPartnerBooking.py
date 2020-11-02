@@ -6,7 +6,7 @@ import pyautogui
 
 def pasteCodeHere():
     # Paste the generated code here
-    # NOTE: All the lines must be indented (aligned on the left with this comment)
+    # NOTE: All the lines must be indented
     # Example:
 	startAt(15)
 
@@ -15,6 +15,7 @@ def pasteCodeHere():
 	booking(5,8)
 	booking(6,7)
 	booking(7,8)
+
 
 
     # End of space for pasting
