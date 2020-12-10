@@ -1,10 +1,10 @@
 body {
-  background-color: black;
-  font-family: Courier;
+  background-color: lightblue;
+  font-family: Arial;
 }
 
 h1 {
-  color: rgb(0, 143, 17);
+  color: rgb(0, 130, 224);
   margin-left: auto;
   margin-right: auto;
   width: 20em;
@@ -22,17 +22,17 @@ input {
 }
 
 button {
-  background-color: black;
   border: solid 1px;
-  border-color: green;
-  color: green;
+  border-color: rgb(0, 150, 224);
+  color: rgb(0, 130, 224);
   padding: 7px;
-  margin-bottom: 20px;
   font-family: Courier;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  width: 80%;
 }
 
 .main {
-  background-color: black;
   display: flex;
   flex-flow: row wrap;
   width: 100%;
@@ -42,7 +42,7 @@ button {
 .element{
   width: 30%;
   margin: 10px;
-  max-height: 492px;
+  height: 492px;
 }
 
 
@@ -55,12 +55,20 @@ button {
   max-height: 80%;
 }
 
+#thuCode {
+  display: none;
+}
+
+#code {
+  display: none;
+}
+
 #map {
   max-width: 500px;
 }
 
 #table {
-  color: rgb(0, 143, 17);
+  color: rgb(0, 130, 224);
   font-weight: bolder;
   min-width: 350px;
   padding: 10px;
@@ -69,7 +77,7 @@ button {
 }
 
 #generator {
-  color: green;
+  color: rgb(0, 130, 224);
   background-color: none;
   max-width: 500px;
   min-height: 300px;
