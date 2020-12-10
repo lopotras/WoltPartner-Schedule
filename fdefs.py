@@ -1,9 +1,15 @@
 #! python3
+import time
+import win32gui
+import pyautogui
 
 def setup():
     # Global variables definition
-    # (relative coordinates)
+    # check if next booking is expected on friDays
+    global friday
+    friday = fridayCheck();
 
+    # (relative coordinates)
     global refreshCircle
     refreshCircle = [0.4370015948963317, 0.26601941747572816]   # X and Y coordinates
                                                                 # of the circle that appears when refreshing
@@ -38,6 +44,22 @@ def setup():
 
     print( time.strftime("%c") + " All set")
 
+def fridayCheck():
+    # returns true if the time is between
+    # Thursday 15:00 (included) and Friday 08:00 (excluded)
+    currentDay = time.strftime("%c")[0:3];
+    currentHour = int(time.strftime("%c")[11:13]);
+    currentMinute = int(time.strftime("%c")[14:16]);
+
+    if(currentDay == "Thu"):
+        if(currentHour >= 15):
+            return True;
+    if(currentDay == "Fri"):
+        if(currentHour < 8):
+            return True;
+    else:
+        return False;
+
 def pause():
     input( "press ENTER to continue..." )
 
@@ -50,6 +72,12 @@ def startAt(hour, minute = 0, second = 0):
                 if time.localtime()[5] == second:
                     print( time.strftime("%c") + " Initiate booking actions")
                     break
+
+def autoStart():
+    if(friday):
+        startAt(8)
+    else:
+        startAt(15)
 
 def enterWolt():
     # Finds and brings BlueStacks window to the front
@@ -81,9 +109,10 @@ def bookShift(slot):
     verifyBooking( slot )
     pyautogui.click( translatedCoordinates( shifts[slot-1] ) )
 
-def booking(day, slot):
-    changeDay(day)
-    bookShift(slot)
+def booking(day, slot, fridayBooking):
+    if(fridayBooking == friday):
+        changeDay(day)
+        bookShift(slot)
 
 def get_pixel_colour( i_x, i_y ):
     # returns the color of a pixel with coordinates i_x, i_y
