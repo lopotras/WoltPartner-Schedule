@@ -1,10 +1,10 @@
 body {
-  background-color: black;
-  font-family: Courier;
+  background-color: lightblue;
+  font-family: Arial;
 }
 
 h1 {
-  color: rgb(0, 143, 17);
+  color: rgb(0, 130, 224);
   margin-left: auto;
   margin-right: auto;
   width: 20em;
@@ -21,66 +21,6 @@ input {
   height: 100%;
 }
 
-button {
-  background-color: black;
-  border: solid 1px;
-  border-color: green;
-  color: green;
-  padding: 7px;
-  margin-bottom: 20px;
-  font-family: Courier;
-}
-
-.main {
-  background-color: black;
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-  justify-content: space-evenly;
-  }
-
-.element{
-  width: 30%;
-  margin: 10px;
-  max-height: 492px;
-}
-
-
-
-.code-holder {
-  margin: auto;
-  padding: 10px;
-  width: 182px;
-  min-height: 180px;
-  max-height: 80%;
-}
-
-#map {
-  max-width: 500px;
-}
-
-#table {
-  color: rgb(0, 143, 17);
-  font-weight: bolder;
-  min-width: 350px;
-  padding: 10px;
-  padding-right: 30px;
-  padding-bottom: 30px;
-}
-
-#generator {
-  color: green;
-  background-color: none;
-  max-width: 500px;
-  min-height: 300px;
-}
-
-#woltMap {
-  max-width: 330px;
-  width: 100%;
-  height: 100%;
-}
-
 table {
   border: none;
   text-align: center;
@@ -93,4 +33,66 @@ th, td {
   text-align: center;
   width: 30px;
   padding: 5px;
+}
+
+button {
+  border: solid 1px;
+  border-color: rgb(0, 150, 224);
+  color: rgb(0, 130, 224);
+  padding: 7px;
+  font-family: Courier;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  width: 80%;
+}
+
+.main {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  }
+
+.element{
+  width: 30%;
+  margin: 10px;
+  height: 492px;
+}
+
+.code-holder {
+  margin: auto;
+  padding: 10px;
+  width: 182px;
+  min-height: 180px;
+  max-height: 80%;
+}
+
+#code {
+  display: none;
+}
+
+#map {
+  max-width: 500px;
+}
+
+#table {
+  color: rgb(0, 130, 224);
+  font-weight: bolder;
+  min-width: 350px;
+  padding: 10px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+#generator {
+  color: rgb(0, 130, 224);
+  background-color: none;
+  max-width: 500px;
+  min-height: 300px;
+}
+
+#woltMap {
+  max-width: 330px;
+  width: 100%;
+  height: 100%;
 }
