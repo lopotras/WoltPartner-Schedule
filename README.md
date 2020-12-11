@@ -4,7 +4,7 @@ A little help to get the Wolt shifts you want.
 The script uses GUI automation to try and book chosen shifts in the **Wolt Courier Partner** app opened in BlueStacks 4.
 
 This is a project I developed while working with Wolt as a courier to facilitate scheduling the shifs.
-The code generator was created as an excersise after finishing the JavaScript course on IOT Blockchain Academy.
+The code generator was created as an excersise after finishing the JavaScript course on Ivan on Tech Blockchain Academy.
 
 <h2>PREREQUISITS</h2>
 
