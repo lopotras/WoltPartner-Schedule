@@ -7,7 +7,8 @@ def setup():
     # Global variables definition
     # check if next booking is expected on friDays
     global friday
-    friday = fridayCheck();
+    friday = fridayCheck()
+    print(friday)
 
     # (relative coordinates)
     global refreshCircle
@@ -47,18 +48,18 @@ def setup():
 def fridayCheck():
     # returns true if the time is between
     # Thursday 15:00 (included) and Friday 08:00 (excluded)
-    currentDay = time.strftime("%c")[0:3];
-    currentHour = int(time.strftime("%c")[11:13]);
-    currentMinute = int(time.strftime("%c")[14:16]);
-
+    currentDay = time.strftime("%c")[0:3]
+    currentHour = int(time.strftime("%c")[11:13])
+    currentMinute = int(time.strftime("%c")[14:16])
+    
     if(currentDay == "Thu"):
         if(currentHour >= 15):
-            return True;
-    if(currentDay == "Fri"):
+            return True
+    elif(currentDay == "Fri"):
         if(currentHour < 8):
-            return True;
-    else:
-        return False;
+            return True
+
+    return False
 
 def pause():
     input( "press ENTER to continue..." )
