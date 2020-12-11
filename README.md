@@ -8,6 +8,7 @@ The code generator was created as an excersise after finishing the JavaScript co
 
 <h2>PREREQUISITS</h2>
 
+  **Note:** The installation process is for Windows 10. In case of a different OS it may slightly differ.
   1. Download and install python and required modules. To do that you can use **miniconda**
   (<a href="https://docs.conda.io/en/latest/miniconda.html">link<a>). After installing it open <b>Anaconda Prompt</b> and type and confirm the following commands:
 
