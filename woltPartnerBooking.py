@@ -5,7 +5,7 @@ import fdefs as f
 # keep this Section as it is
 f.setup()
 f.enterWolt()
-f.autoStartMunich()
+f.autoStartMunich() # exeption: for shifts showing up at 10:00 use "f.startAt(10)" instead
 f.refresh()
 f.moveToLaterDays()
 # end of Section
