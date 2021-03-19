@@ -123,12 +123,26 @@ def changeDay(day):
     verifyPixelColorChange(  int( pos[0] ), int( pos[1] ), 255  )
     print( time.strftime("%c") + " Changed day to {}".format(day) )
 
+def changeDayMunich(day):
+    # moves to a day that is currently at 'day' position
+    # note: 'day' must be an number between 1-10 (position from right to left)
+    pos = translatedCoordinates( munichDaysFromRight[day-1] )
+    pyautogui.click( pos[0], pos[1] )
+    verifyPixelColorChange(  int( pos[0] ), int( pos[1] ), 255  )
+    print( time.strftime("%c") + " Changed day to {}".format(day) )
+
 def bookShift(slot):
     # Clicks on the booking button space on the chosen slot
     # note that 'slot' must be a number between 1-14 (position from top to bottom)
     verifyBooking( slot )
     pyautogui.click( translatedCoordinates( shifts[slot-1] ) )
 
+# booking function for cities where shifts appear on one day only
+def bookingMunich(day, slot):
+    changeDayMunich(day)
+    bookShift(slot)
+
+# booking function for cities where shifts appear on Thursday and Friday
 def booking(day, slot, fridayBooking):
     if(fridayBooking == friday):
         changeDay(day)
