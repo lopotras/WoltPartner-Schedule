@@ -208,9 +208,11 @@ def translatedCoordinates(xyIn):
     yOut = rect[1] + (  xyIn[1] * ( rect[3] - rect[1] )  )
     return [ int(xOut), int(yOut) ]
 
-# display the city name on start of program to remember which city's config you are using
-def welcomeAarhus():
-    print( time.strftime("%c") + "Hi Friend! Welcome to Aarhus." )
-    
-def welcomeMunich():
-    print( time.strftime("%c") + "Hi Friend! Welcome to Munich." )
+# moves the days all the way to the right
+# setup for the city that has all shifts showing up on one day
+def moveToLaterDays():
+    posStart = translatedCoordinates( thuDays[6] )          # 7th day from the left
+    posEnd = translatedCoordinates( thuDays[0] )            # 1st day from the left
+    pyautogui.moveTo( posStart )                            # move to posStart
+    distance = posEnd[0] - posStart[0]                      # calculate distance to move                     
+    pyautogui.drag( distance, 0, 0.2, button = 'left' )     # drag coursor 
