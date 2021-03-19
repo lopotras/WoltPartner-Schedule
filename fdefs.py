@@ -39,6 +39,20 @@ def setup():
                 [0.44657097288676234, 0.19320388349514564],
                 [0.532695374800638, 0.19320388349514564]]
 
+    # X and Y coordinates of days for booking in Munich, after moving them all the way to the right
+    # starting from right side
+    global munichDaysFromRight
+    munichDaysFromRight = [[0.8764044943820225, 0.2],
+                        [0.7849117174959872, 0.2],
+                        [0.7046548956661316, 0.2],
+                        [0.6163723916532905, 0.2],
+                        [0.5296950240770465, 0.2],
+                        [0.43980738362760835, 0.2],
+                        [0.3563402889245586, 0.2],
+                        [0.2712680577849117, 0.2],
+                        [0.1781701444622793, 0.2],
+                        [0.09470304975922954, 0.2]]
+
     global bookButton
     bookButton = [[0.7751196172248804, 0.3300970873786408], # X and Y coordinates of
                 [0.8500797448165869, 0.32815533980582523]]  # start and end of the button area
@@ -74,11 +88,16 @@ def startAt(hour, minute = 0, second = 0):
                     print( time.strftime("%c") + " Initiate booking actions")
                     break
 
+# automatic start for Aarhus
 def autoStart():
     if(friday):
         startAt(8)
     else:
         startAt(15)
+
+# automatic start for Munich
+def autoStartMunich():
+    startAt(10,30)
 
 def enterWolt():
     # Finds and brings BlueStacks window to the front
@@ -188,3 +207,10 @@ def translatedCoordinates(xyIn):
     xOut = rect[0] + (  xyIn[0] * ( rect[2] - rect[0] )  )
     yOut = rect[1] + (  xyIn[1] * ( rect[3] - rect[1] )  )
     return [ int(xOut), int(yOut) ]
+
+# display the city name on start of program to remember which city's config you are using
+def welcomeAarhus():
+    print( time.strftime("%c") + "Hi Friend! Welcome to Aarhus." )
+    
+def welcomeMunich():
+    print( time.strftime("%c") + "Hi Friend! Welcome to Munich." )
