@@ -191,11 +191,11 @@ def verifyRefresh():
     pos = translatedCoordinates( refreshCircle )
 
     # see if the refreshing circle appeared
-    verifyPixelColorChange( int(pos[0]), int(pos[0]), 255 )
+    verifyPixelColorChange( int(pos[0]), int(pos[1]), 255 )
     print( time.strftime("%c") + " Refreshing..." )
 
     # see if the refreshing circle disappeared
-    verifyPixelColorChange( int(pos[0]), int(pos[0]), 250 )
+    verifyPixelColorChange( int(pos[0]), int(pos[1]), 250 )
     print( time.strftime("%c") + " Refreshed" )
 
 def translatedCoordinates(xyIn):
