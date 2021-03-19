@@ -216,3 +216,4 @@ def moveToLaterDays():
     pyautogui.moveTo( posStart )                            # move to posStart
     distance = posEnd[0] - posStart[0]                      # calculate distance to move                     
     pyautogui.drag( distance, 0, 0.2, button = 'left' )     # drag coursor 
+    print( time.strftime("%c") + " Moved to new days" )
