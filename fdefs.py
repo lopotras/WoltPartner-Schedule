@@ -110,9 +110,13 @@ def enterWolt():
 
 def refresh():
     # refreshes the page by dragging cursor
+    print( time.strftime("%c") + " Initiating refresh operations..." )
     pos = translatedCoordinates( refreshCircle )
+    print( time.strftime("%c") + " Movinging to refresh start position..." )
     pyautogui.moveTo( pos )
+    print( time.strftime("%c") + " Moved. Initiating drag..." )
     pyautogui.drag( 0, 200, 0.2, button = 'left' )
+    print( time.strftime("%c") + " Drag finished. Initiating refresh verification..." )
     verifyRefresh()     #checks if the refreshing worked properly
 
 def changeDay(day):
