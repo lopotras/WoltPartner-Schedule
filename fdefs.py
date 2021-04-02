@@ -14,6 +14,13 @@ def setup():
     global refreshCircle
     refreshCircle = [0.4370015948963317, 0.26601941747572816]   # X and Y coordinates
                                                                 # of the circle that appears when refreshing
+
+    # in case the refresh circle is not grey in color 
+    # the coordinates of the moving black circle can be used to locate it
+    # NOTE: this method will be a bit slower than the original one
+    global refreshCircleBlackPart
+    refreshCircleBlackPart = [0.463884430176565, 0.2586538461538462]
+
     global shifts
     shifts = [[0.8229665071770335, 0.27475728155339807],    # X and Y coordinates
                 [0.810207336523126, 0.3300970873786408],    # of shift slots
@@ -119,6 +126,20 @@ def refresh():
     print( time.strftime("%c") + " Drag finished. Initiating refresh verification..." )
     verifyRefresh()     #checks if the refreshing worked properly
 
+def refreshMunich():
+    # refreshes the page by dragging cursor
+    # uses a different verification function than refresh()
+    # used when the refresh circle is of white color
+    # NOTE: slightly slower than refresh()
+    print( time.strftime("%c") + " Initiating refresh operations..." )
+    pos = translatedCoordinates( refreshCircle )
+    print( time.strftime("%c") + " Movinging to refresh start position..." )
+    pyautogui.moveTo( pos )
+    print( time.strftime("%c") + " Moved. Initiating drag..." )
+    pyautogui.drag( 0, 200, 0.2, button = 'left' )
+    print( time.strftime("%c") + " Drag finished. Initiating refresh verification..." )
+    verifyRefreshMunich()     # checks if the refreshing worked properly
+
 def changeDay(day):
     # moves to a day that is currently at 'day' position
     # note: 'day' must be an number between 1-7 (position from left to right)
@@ -175,6 +196,26 @@ def verifyPixelColorChange(x,y,startColor):
     while currentColor[0] == startColor:
         currentColor = get_pixel_colour(x,y)
 
+def verifyPixelColorChangeTimed(x,y,startColor,probingTime):
+    # stops until the color changes from startColor and does not come back to startColor within 0.5s
+    # compares pixel color to the first number of 'color'
+    # x and y are pixel coordinates
+    # startColor values (in ""):
+    # ("255", 255, 255) - white, background
+    # ("81", 81, 84) - black, active hours text, 1st pixel on the left
+    # ("0", 157, 224) - blue, square on currently chosen day's number
+    # ("185", 186, 187) - grey, inactive hours text
+    # ("250", 250, 250) - grey, refresh circle
+    currentColor = get_pixel_colour(x,y)
+    currentTime = time.time()
+    finishTime = currentTime + probingTime
+    while currentColor[0] == startColor or currentTime < finishTime:
+        currentColor = get_pixel_colour(x,y)
+        # print( time.strftime("%c") + " " + str(currentColor) )
+        currentTime = time.time()
+        if currentColor[0] == startColor:
+            finishTime = currentTime + probingTime
+
 def verifyBooking(slot):
     # Stops script
     # Verifies if the chosen slot has a booking option available
@@ -214,6 +255,21 @@ def verifyRefresh():
 
     # see if the refreshing circle disappeared
     verifyPixelColorChange( int(pos[0]), int(pos[1]), 250 )
+    print( time.strftime("%c") + " Refreshed" )
+
+def verifyRefreshMunich():
+    # verify if refreshing worked
+    # use only when the refresh circle has a plain white color (the same as background)
+    # tracks the black circle that turns around when refreshing
+    # NOTE: slightly slower than verifyRefresh()
+    pos = translatedCoordinates( refreshCircleBlackPart )
+
+    # see if the refreshing circle appeared
+    verifyPixelColorChange( int(pos[0]), int(pos[1]), 255 )
+    print( time.strftime("%c") + " Refreshing..." )
+
+    # see if the black moving circle on the refreshing circle disappeared
+    verifyPixelColorChangeTimed( int(pos[0]), int(pos[1]), 0,  0.5)
     print( time.strftime("%c") + " Refreshed" )
 
 def translatedCoordinates(xyIn):

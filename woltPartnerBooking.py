@@ -5,8 +5,8 @@ import fdefs as f
 # keep this Section as it is
 f.setup()
 f.enterWolt()
-f.autoStartMunich() # exeption: for shifts showing up at 10:00 use "f.startAt(10)" instead
-f.refresh()
+f.startAt(14,45) # exeption: for shifts showing up at 10:00 use "f.startAt(10)" instead
+f.refreshMunich()
 f.moveToLaterDays()
 # end of Section
 
@@ -32,9 +32,9 @@ f.moveToLaterDays()
 
 # booking for 7th shift from the top on Tuesday,
 # if there is an extra Saturday from next month at the end would be:
-f.bookingMunich(7,7)
+f.bookingMunich(6,1)
 # and if the extra Saturday isn't there:
-f.bookingMunich(6,7)
+f.bookingMunich(6,4)
 
 ### end of booking ###
 
